@@ -13,7 +13,8 @@ class MenuController
 		puts "2 - Create an entry"
 		puts "3 - Search for an entry"
 		puts "4 - Import entries from a CSV"
-		puts "5 - Exit"
+		puts "5 - Delete all entries"
+		puts "6 - Exit"
 		print "Enter your selection: "
 
 		selection = gets.to_i
@@ -36,6 +37,9 @@ class MenuController
 			read_csv
 			main_menu
 		when 5
+			system "clear"
+			delete_all_entries!
+		when 6
 			puts "Good-bye!"
 			exit(0)
 		else
@@ -178,5 +182,32 @@ class MenuController
 			puts entry.to_s
 			search_submenu(entry)
 		end
+	end
+
+	def delete_all_entries!
+		if @address_book.entries.length == 0
+			puts "There are no entries to delete"
+			main_menu
+		end
+
+		puts "DO YOU WANT TO DELETE ALL ENTREIS"
+		puts "y - yes"
+		puts "n - cancle and return to main menu"
+
+		selection = gets.chomp
+		if selection == "y"
+			for i in 0..(@address_book.entries.length-1)
+				delete_entry(@address_book.entries[0])
+			end
+			puts "All entries have been deleted successfully"
+			main_menu
+		elsif selection == "n"
+			system "clear"
+			main_menu
+		else
+			system "clear"
+			puts "#{selection} is not a valid input"
+			delete_all_entries!
+		end 
 	end
 end
