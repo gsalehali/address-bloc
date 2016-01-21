@@ -87,7 +87,7 @@ RSpec.describe AddressBook do
 			# expect(entry_four.email).to eql "sally@blocmail.com"
 		end
 
-		it "imports the 5th entry" do
+			it "imports the 5th entry" do
 			book.import_from_csv("entries.csv")
 			entry_five = book.entries[4]
 
@@ -95,6 +95,35 @@ RSpec.describe AddressBook do
 			# expect(entry_five.name).to eql "Sussie"
 			# expect(entry_five.phone_number).to eql "555-555-2036"
 			# expect(entry_five.email).to eql "sussie@blocmail.com"
+		end
+	end
+
+	context "importing from entries_2.csv" do
+		it "imports the correct number of entries" do
+			book.import_from_csv("entries_2.csv")
+
+			expect(book.entries.size).to eql 3
+		end
+
+		it "imports the 1st entry in entries_2.csv" do
+			book.import_from_csv("entries_2.csv")
+			entry_one = book.entries[0]
+
+			check_entry(entry_one, "Kira", "058-013-2013", "kira@example.com")
+		end
+
+		it "importes the 2nd entry in entries_2.csv" do
+			book.import_from_csv("entries_2.csv")
+			entry_two = book.entries[1]
+
+			check_entry(entry_two, "Ru", "059-058-1234", "ru@example.com")
+		end
+
+		it "imports the 3rd entry in entries_2.csv" do
+			book.import_from_csv("entries_2.csv")
+			entry_three = book.entries[2]
+
+			check_entry(entry_three, "Saleh", "056-234-2425", "saleh@example.com")
 		end
 	end
 
